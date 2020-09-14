@@ -1,0 +1,52 @@
+﻿@page "/auth/register"
+@layout AuthLayout
+@using ToDoApp.Shared.Models;
+
+<div class="row">
+    <div class="col-12">
+        <h2>Welcome to ToDoApp!</h2>
+        <h3>Create a new account</h3>
+
+        <EditForm Model="registerRequest" OnValidSubmit="RegisterUser">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <RadzenCard>
+                <label>First Name</label>
+                <Radzen.Blazor.RadzenTextBox @bind-Value="registerRequest.FirstName"></Radzen.Blazor.RadzenTextBox>
+
+                <label>Last Name</label>
+                <Radzen.Blazor.RadzenTextBox @bind-Value="registerRequest.LastName"></Radzen.Blazor.RadzenTextBox>
+
+                <label>Email</label>
+                <Radzen.Blazor.RadzenTextBox @bind-Value="registerRequest.Email"></Radzen.Blazor.RadzenTextBox>
+
+                <label>Password</label>
+                <Radzen.Blazor.RadzenPassword @bind-Value="registerRequest.Password"></Radzen.Blazor.RadzenPassword>
+
+                <label>Confirm Password</label>
+                <Radzen.Blazor.RadzenPassword @bind-Value="registerRequest.ConfirmPassword"></Radzen.Blazor.RadzenPassword>
+
+                <hr />
+
+                <Radzen.Blazor.RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Register"
+                                            ButtonStyle="Radzen.ButtonStyle.Primary" class="btn-block mr-2" />
+
+                <Radzen.Blazor.RadzenButton ButtonType="Radzen.ButtonType.Button" Text="Login"
+                                            ButtonStyle="Radzen.ButtonStyle.Secondary" class="btn-block mr-2" />
+            </RadzenCard>
+
+        </EditForm>
+
+    </div>
+
+</div>
+
+@code {
+    RegisterRequest registerRequest = new RegisterRequest();
+
+    public void RegisterUser()
+    {
+    }
+
+}

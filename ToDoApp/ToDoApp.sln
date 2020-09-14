@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp", "ToDoApp.csproj", "{D961C87B-0610-49F6-B847-EA4BA502971F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Shared", "..\ToDoApp.Shared\ToDoApp.Shared.csproj", "{5D8D7684-F8A6-494D-A1F2-C00DF867744D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D961C87B-0610-49F6-B847-EA4BA502971F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D961C87B-0610-49F6-B847-EA4BA502971F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D961C87B-0610-49F6-B847-EA4BA502971F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D961C87B-0610-49F6-B847-EA4BA502971F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D8D7684-F8A6-494D-A1F2-C00DF867744D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D8D7684-F8A6-494D-A1F2-C00DF867744D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D8D7684-F8A6-494D-A1F2-C00DF867744D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D8D7684-F8A6-494D-A1F2-C00DF867744D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
