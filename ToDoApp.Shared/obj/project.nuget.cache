@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "NxmpVlq9Rmr8qkNFatzHEU6VYFEIyugZnoNVkU+0dmkBvn+oTarXxSat6VXZ3z+BUxstw58+O7/6O2S7xxo0dw==",
+  "success": true,
+  "projectFilePath": "/Users/asharapova/Git/ToDoApp.Shared/ToDoApp.Shared.csproj",
+  "expectedPackageFiles": [
+    "/Users/asharapova/.nuget/packages/aksoftware.webapi/3.0.1/aksoftware.webapi.3.0.1.nupkg.sha512",
+    "/Users/asharapova/.nuget/packages/newtonsoft.json/11.0.2/newtonsoft.json.11.0.2.nupkg.sha512",
+    "/Users/asharapova/.nuget/packages/system.componentmodel.annotations/4.7.0/system.componentmodel.annotations.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,9 @@
+/Users/asharapova/Git/ToDoApp.Shared/bin/Debug/netstandard2.1/ToDoApp.Shared.deps.json
+/Users/asharapova/Git/ToDoApp.Shared/bin/Debug/netstandard2.1/ToDoApp.Shared.dll
+/Users/asharapova/Git/ToDoApp.Shared/bin/Debug/netstandard2.1/ToDoApp.Shared.pdb
+/Users/asharapova/Git/ToDoApp.Shared/obj/Debug/netstandard2.1/ToDoApp.Shared.csprojAssemblyReference.cache
+/Users/asharapova/Git/ToDoApp.Shared/obj/Debug/netstandard2.1/ToDoApp.Shared.AssemblyInfoInputs.cache
+/Users/asharapova/Git/ToDoApp.Shared/obj/Debug/netstandard2.1/ToDoApp.Shared.AssemblyInfo.cs
+/Users/asharapova/Git/ToDoApp.Shared/obj/Debug/netstandard2.1/ToDoApp.Shared.csproj.CoreCompileInputs.cache
+/Users/asharapova/Git/ToDoApp.Shared/obj/Debug/netstandard2.1/ToDoApp.Shared.dll
+/Users/asharapova/Git/ToDoApp.Shared/obj/Debug/netstandard2.1/ToDoApp.Shared.pdb

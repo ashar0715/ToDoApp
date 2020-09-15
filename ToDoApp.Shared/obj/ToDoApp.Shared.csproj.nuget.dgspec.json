@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/asharapova/Git/ToDoApp.Shared/ToDoApp.Shared.csproj": {}
+  },
+  "projects": {
+    "/Users/asharapova/Git/ToDoApp.Shared/ToDoApp.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/asharapova/Git/ToDoApp.Shared/ToDoApp.Shared.csproj",
+        "projectName": "ToDoApp.Shared",
+        "projectPath": "/Users/asharapova/Git/ToDoApp.Shared/ToDoApp.Shared.csproj",
+        "packagesPath": "/Users/asharapova/.nuget/packages/",
+        "outputPath": "/Users/asharapova/Git/ToDoApp.Shared/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/asharapova/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "AKSoftware.WebApi": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.402/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
