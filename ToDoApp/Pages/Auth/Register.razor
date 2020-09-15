@@ -1,6 +1,8 @@
 ﻿@page "/auth/register"
 @layout AuthLayout
 @using ToDoApp.Shared.Models;
+@inject AuthentificationService authService
+@inject NavigationManager navigation 
 
 <div class="row">
     <div class="col-12">
@@ -12,6 +14,17 @@
             <ValidationSummary />
 
             <RadzenCard>
+                @if (!string.IsNullOrEmpty(message))
+                {
+                    <div class="alert alert-info">@message</div>
+                    if (errors != null)
+                    {
+                        foreach (string err in errors)
+                        {
+                            <div style="color:red">@err</div>
+                        }
+                    }
+                }
                 <label>First Name</label>
                 <Radzen.Blazor.RadzenTextBox @bind-Value="registerRequest.FirstName"></Radzen.Blazor.RadzenTextBox>
 
@@ -30,10 +43,10 @@
                 <hr />
 
                 <Radzen.Blazor.RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Register"
-                                            ButtonStyle="Radzen.ButtonStyle.Primary" class="btn-block mr-2" />
+                                            ButtonStyle="Radzen.ButtonStyle.Primary" class="btn-block mr-2" Disabled="isBusy" />
 
                 <Radzen.Blazor.RadzenButton ButtonType="Radzen.ButtonType.Button" Text="Login"
-                                            ButtonStyle="Radzen.ButtonStyle.Secondary" class="btn-block mr-2" />
+                                            ButtonStyle="Radzen.ButtonStyle.Secondary" class="btn-block mr-2" Disabled="isBusy" />
             </RadzenCard>
 
         </EditForm>
@@ -45,8 +58,24 @@
 @code {
     RegisterRequest registerRequest = new RegisterRequest();
 
-    public void RegisterUser()
-    {
-    }
+    bool isBusy = false;
+    string message = string.Empty;
+    string[] errors;
 
+    public async Task RegisterUser()
+    {
+        isBusy = true;
+        var result = await authService.RegisterUserAsync(registerRequest);
+        if (result.IsSuccess)
+        {
+            message = result.Message;
+            errors = null;
+        }
+        else
+        {
+            message = result.Message;
+            errors = result.Errors;
+        }
+        isBusy = false;
+    }
 }

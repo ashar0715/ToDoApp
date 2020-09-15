@@ -1,0 +1,4 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="/Users/asharapova/Git/ToDoApp/bin/Debug/netstandard2.1/wwwroot/" />
+  <ContentRoot BasePath="_content/Radzen.Blazor" Path="/Users/asharapova/.nuget/packages/radzen.blazor/2.12.2/build/../staticwebassets/" />
+</StaticWebAssets>

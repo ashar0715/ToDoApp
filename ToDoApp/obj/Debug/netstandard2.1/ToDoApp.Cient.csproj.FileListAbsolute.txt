@@ -1,0 +1,15 @@
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/ToDoApp.Cient.csprojAssemblyReference.cache
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/ToDoApp.Cient.AssemblyInfoInputs.cache
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/ToDoApp.Cient.AssemblyInfo.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/ToDoApp.Cient.csproj.CoreCompileInputs.cache
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/ToDoApp.Cient.RazorComponent.input.cache
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/App.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/Pages/Auth/Register.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/Pages/Counter.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/Pages/FetchData.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/Pages/Index.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/Shared/AuthLayout.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/Shared/MainLayout.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/Shared/NavMenu.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/Shared/SurveyPrompt.razor.g.cs
+/Users/asharapova/Git/ToDoApp/obj/Debug/netstandard2.1/RazorDeclaration/_Imports.razor.g.cs
