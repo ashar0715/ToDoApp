@@ -15,17 +15,7 @@
 
             <RadzenCard>
                 <AlertMessage Message="@message" MessageType="@messageType"></AlertMessage>
-                @if (!string.IsNullOrEmpty(message))
-                {
-                    <div class="alert alert-info">@message</div>
-                    if (errors != null)
-                    {
-                        foreach (string err in errors)
-                        {
-                            <div style="color:red">@err</div>
-                        }
-                    }
-                }
+
                 <label>First Name</label>
                 <Radzen.Blazor.RadzenTextBox @bind-Value="registerRequest.FirstName"></Radzen.Blazor.RadzenTextBox>
 
@@ -62,7 +52,6 @@
     bool isBusy = false;
     string message = string.Empty;
     Models.AlertMessageType messageType = Models.AlertMessageType.Success;
-    string[] errors;
 
     public async Task RegisterUser()
     {
@@ -72,12 +61,11 @@
         {
             message = result.Message;
             messageType = Models.AlertMessageType.Success;
-            errors = null;
         }
         else
         {
-            message = result.Message;
-            errors = result.Errors;
+            message = result.Errors.FirstOrDefault() ?? result.Message;
+            messageType = Models.AlertMessageType.Error;
         }
         isBusy = false;
     }
