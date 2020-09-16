@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Auth\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ToDoApp.Shared\ToDoApp.Shared.csproj">

@@ -1,22 +1,24 @@
 ﻿<Properties StartupConfiguration="{D961C87B-0610-49F6-B847-EA4BA502971F}|ToDoApp">
-  <MonoDevelop.Ide.Workbench ActiveDocument="../ToDoApp.Shared/Models/UserManagerResponse.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="_Imports.razor">
     <Files>
-      <File FileName="Pages/Auth/Register.razor" Line="19" Column="59" />
+      <File FileName="Pages/Auth/Register.razor" Line="63" Column="21" />
       <File FileName="../ToDoApp.Shared/Models/RegisterRequest.cs" Line="1" Column="1" />
       <File FileName="../ToDoApp.Shared/Services/AuthentificationService.cs" Line="25" Column="2" />
-      <File FileName="Program.cs" Line="28" Column="1" />
-      <File FileName="_Imports.razor" Line="10" Column="31" />
-      <File FileName="Shared/AuthLayout.razor" Line="1" Column="1" />
-      <File FileName="../ToDoApp.Shared/Models/UserManagerResponse.cs" Line="7" Column="44" />
+      <File FileName="Program.cs" Line="16" Column="93" />
+      <File FileName="_Imports.razor" Line="12" Column="1" />
+      <File FileName="Shared/AlertMessage.razor" Line="13" Column="40" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ToDoApp" expanded="True">
+            <Node name="ToDoApp" expanded="True">
+              <Node name="Models" expanded="True" />
+              <Node name="Shared" expanded="True" />
+              <Node name="_Imports.razor" selected="True" />
+            </Node>
             <Node name="ToDoApp.Shared" expanded="True">
-              <Node name="Models" expanded="True">
-                <Node name="UserManagerResponse.cs" selected="True" />
-              </Node>
+              <Node name="Models" expanded="True" />
               <Node name="Services" expanded="True" />
             </Node>
           </Node>

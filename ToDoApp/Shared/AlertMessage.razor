@@ -1,0 +1,41 @@
+﻿@using ToDoApp.Models
+
+@if (!string.IsNullOrWhiteSpace(Message))
+{
+    <div class="alert @alertClass">@Message<span @onclick="HideMessage">x</span></div>
+}
+
+
+@code {
+
+    public string Message { get; set; }
+
+    public AlertMessageType MessageType
+    {
+        get => messageType;
+        set
+        {
+            messageType = value;
+            switch (messageType)
+            {
+                case AlertMessageType.Error:
+                    alertClass = "alert-danger";
+                    break;
+                case AlertMessageType.Warning:
+                    alertClass = "alert-warning";
+                    break;
+                case AlertMessageType.Success:
+                    alertClass = "alert-sucess";
+                    break;
+            }
+        }
+    }
+    string alertClass = "alert-Info";
+
+    private AlertMessageType messageType { get; set; }
+
+    void HideMessage()
+    {
+        Message = string.Empty;
+    }
+}
