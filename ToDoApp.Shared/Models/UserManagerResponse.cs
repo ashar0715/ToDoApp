@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ToDoApp.Shared.Models
 {
     public class UserManagerResponse
@@ -7,5 +9,6 @@ namespace ToDoApp.Shared.Models
         public bool IsSuccess { get; set; }
         public DateTime? ExpireDate { get; set; }
         public string[] Errors { get; set; }
+        public Dictionary<string,string> UserInfo { get; set; }
     }
 }
