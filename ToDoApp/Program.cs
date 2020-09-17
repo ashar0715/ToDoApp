@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ToDoApp.Shared.Services;
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace ToDoApp
 {
@@ -19,13 +20,25 @@ namespace ToDoApp
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
-            builder.Services.AddBlazoredLocalStorage();
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            //adding services to IService collection
+
             builder.Services.AddScoped<AuthentificationService>(s =>
             {
                 return new AuthentificationService(URL);
             });
+            //for storing data locally in a browser
+            builder.Services.AddBlazoredLocalStorage();
+            /* Options convert .json (configuration) files into POCO objects
+            and make it accessable throuth dependency injection in the App*/
+            builder.Services.AddOptions();
+            //for user authorization in a browser
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider, LocalAuthenticationStateProvider>();
+            builder.RootComponents.Add<App>("app");
+            builder.Services.AddScoped(sp =>
+            new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
 
             await builder.Build().RunAsync();
         }
