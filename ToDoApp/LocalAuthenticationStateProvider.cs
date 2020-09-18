@@ -41,7 +41,13 @@ namespace ToDoApp
             }
 
             return new AuthenticationState(new System.Security.Claims.ClaimsPrincipal());
+        }
 
+        //removes user object from the browser and notifies a view about authentication state changed
+        public async Task LogoutAsync()
+        {
+            await _storageService.RemoveItemAsync("User");
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
         }
     }
 }
