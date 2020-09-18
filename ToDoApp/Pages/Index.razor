@@ -1,6 +1,4 @@
 ﻿@page "/"
-@layout AuthLayout
+@attribute [Authorize]
 
-Welcome to ToDoApp
-
-<SurveyPrompt Title="How blazor is working for you" />
+<h1>Welcome to ToDoApp!</h1>

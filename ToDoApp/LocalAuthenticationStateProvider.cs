@@ -32,8 +32,12 @@ namespace ToDoApp
 
                 var identity = new ClaimsIdentity(claims, "BearerToken");
                 var user = new ClaimsPrincipal(identity);
+                var state = new AuthenticationState(user);
+                //notify view about authorization state changed
+          
+                NotifyAuthenticationStateChanged(Task.FromResult(state));
 
-                return new AuthenticationState(user);
+                return state;
             }
 
             return new AuthenticationState(new System.Security.Claims.ClaimsPrincipal());

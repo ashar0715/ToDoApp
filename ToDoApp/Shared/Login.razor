@@ -4,6 +4,7 @@
 @inject AuthentificationService authService
 @inject NavigationManager navigation
 @inject ILocalStorageService storageService
+@inject AuthenticationStateProvider authenticationStateProvider
 
 <div class="row">
     <div class="col-12">
@@ -53,9 +54,6 @@
         var result = await authService.LoginUserAsync(loginRequest);
         if (result.IsSuccess)
         {
-            message = "Welcome to ToDoApp!";
-            messageType = ToDoApp.Models.AlertMessageType.Success;
-
             //This "userInfo" object will be stored locally in a browser
             var userInfo = new ToDoApp.Models.LocalUserInfo
             {
@@ -67,6 +65,8 @@
             };
             //when passed a key name and value, will add that key to the given Storage object
             await storageService.SetItemAsync("User", userInfo);
+            await authenticationStateProvider.GetAuthenticationStateAsync();
+            navigation.NavigateTo("/");
         }
         else
         {
