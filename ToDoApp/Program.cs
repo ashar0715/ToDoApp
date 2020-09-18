@@ -27,6 +27,10 @@ namespace ToDoApp
             {
                 return new AuthentificationService(URL);
             });
+            builder.Services.AddScoped<PlansService>(s =>
+            {
+                return new PlansService(URL);
+            });
             //for storing data locally in a browser
             builder.Services.AddBlazoredLocalStorage();
             /* Options convert .json (configuration) files into POCO objects
