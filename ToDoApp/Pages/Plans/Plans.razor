@@ -1,5 +1,5 @@
 ﻿@page "/plans"
-@page "/plans/{pageNumber}"
+@page "/plans/{pageNumber:int}"
 
 @inject PlansService plansService
 @attribute [Authorize]
@@ -22,7 +22,7 @@ else
         {
             <div class="col-4">
                 <RadzenCard>
-                    <img src="@plan.CoverPath" style="height:100px;margin:5px" />
+                    <img src="@plan.CoverPath" style="width:90%;margin:5px" />
                     <h2>@plan.Title</h2>
                     <p>@plan.Description</p>
                     <div class="row">
@@ -42,7 +42,18 @@ else
 }
 
 <div class="row">
-    <Radzen.Blazor.RadzenButton ButtonStyle="Radzen.ButtonStyle.Info" Text="1" Style="margin:8px;" />
+    @for (int i = 1; i < totalPages; i++)
+    {
+        int page = i;
+        @if (page == PageNumber)
+        {
+            <Radzen.Blazor.RadzenButton Click="async () => await MoveToPageAsync(page)" Disabled="true" ButtonStyle="Radzen.ButtonStyle.Info" Text="@i.ToString()" Style="margin:8px;" />
+        }
+        else
+        {
+            <Radzen.Blazor.RadzenButton Click="async () => await MoveToPageAsync(page)" ButtonStyle="Radzen.ButtonStyle.Info" Text="@i.ToString()" Style="margin:8px;" />
+        }
+    }
 </div>
 
 
@@ -56,6 +67,8 @@ else
     bool isBusy = false;
     List<Plan> plans = new List<Plan>();
 
+    int totalPages = 1;
+
     async Task GetPlansAsync()
     {
         isBusy = true;
@@ -64,8 +77,24 @@ else
 
         if (PageNumber == null) PageNumber = 1;
         var result = await plansService.GetAllPlansByPageAsync(PageNumber.Value);
+
+        if (result.Count % result.PageSize == 0)
+        {
+
+        }
+        else
+        {
+            totalPages = result.Count / result.PageSize + 1;
+        }
+
         plans = result.Records.ToList();
         isBusy = false;
+    }
+
+    async Task MoveToPageAsync(int pageNumber)
+    {
+        PageNumber = pageNumber;
+        await GetPlansAsync();
     }
 
     protected override async Task OnInitializedAsync()
