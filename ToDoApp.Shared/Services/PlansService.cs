@@ -45,7 +45,7 @@ namespace ToDoApp.Shared.Services
         public async Task<PlanCollectionResponse> SearchPlansByPageAsync(string query, int page = 1)
         {
             //GetProtectedAsync sends also access token
-            var response = await client.GetProtectedAsync<PlanCollectionResponse>($"{_baseUrl}/api/plans?query={query}&page={page}");
+            var response = await client.GetProtectedAsync<PlanCollectionResponse>($"{_baseUrl}/api/plans/search?query={query}&page={page}");
             return response.Result;
         }
     }
