@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using ToDoApp.Shared.Services;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using Tewr.Blazor.FileReader;
 
 namespace ToDoApp
 {
@@ -26,6 +27,10 @@ namespace ToDoApp
             builder.Services.AddScoped<AuthentificationService>(s =>
             {
                 return new AuthentificationService(URL);
+            });
+            builder.Services.AddFileReaderService(options =>
+            {
+                options.UseWasmSharedBuffer = true;
             });
             builder.Services.AddScoped<PlansService>(s =>
             {

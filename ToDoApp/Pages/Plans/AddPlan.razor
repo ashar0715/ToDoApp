@@ -1,0 +1,27 @@
+﻿@page "/plans/addplan"
+@inject PlansService planService
+@inject IFileReaderService fileReaderService
+@inject NavigationManager navigationManager
+@attribute [Authorize]
+
+<h3>Add a new plan</h3>
+
+<div class="row">
+    <EditForm Model="model" Style="width:100%">
+        <RadzenCard>
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <RadzenTextBox Placeholder="Title" Style="margin:10px"/>
+            <RadzenTextArea Placeholder="Description" Style="margin:10px"/>
+            <input type="file" style="margin:10px"/>
+            <img style="width:100%; margin:10px"/>
+            <hr/>
+            <RadzenButton Text="Insert" class="btn btn-block" ButtonStyle="Radzen.ButtonStyle.Success" Style="margin:auto; width:30%"/>
+        </RadzenCard>
+    </EditForm>
+
+</div>
+
+@code {
+    PlanRequest model = new PlanRequest();
+}

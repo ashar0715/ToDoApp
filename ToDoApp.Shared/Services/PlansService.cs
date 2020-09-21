@@ -48,5 +48,21 @@ namespace ToDoApp.Shared.Services
             var response = await client.GetProtectedAsync<PlanCollectionResponse>($"{_baseUrl}/api/plans/search?query={query}&page={page}");
             return response.Result;
         }
+
+        /// <summary>
+        /// Send a plan to api
+        /// </summary>
+        /// <param name="model">Represents the plan to be added</param>
+        /// <returns></returns>
+        public async Task<PlanSingleResponse> PostPlanAsync(PlanRequest model)
+        {
+            var response = await client.SendFormProtectedAsync<PlanSingleResponse>($"{_baseUrl}/api/plans", ActionType.POST,
+                new StringFormKeyValue("Title", model.Title),
+                new StringFormKeyValue("Description", model.Description),
+                new StringFormKeyValue("CoverFile", model.CoverFile),
+                new StringFormKeyValue("FileName", model.FileName));
+
+            return response.Result;
+        }
     }
 }

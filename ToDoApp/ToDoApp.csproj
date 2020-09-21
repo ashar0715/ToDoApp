@@ -15,6 +15,7 @@
     <PackageReference Include="Radzen.Blazor" Version="2.13.0" />
     <PackageReference Include="Blazored.LocalStorage" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="3.1.8" />
+    <PackageReference Include="Tewr.Blazor.FileReader" Version="2.0.0.20242" />
   </ItemGroup>
 
   <ItemGroup>
