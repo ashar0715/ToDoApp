@@ -7,6 +7,7 @@ namespace ToDoApp.Shared.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string CoverPath { get; set; }
+        public string CoverFile { get; set; }
         public ToDoItem[] ToDoItems { get; set; }
     }
 }

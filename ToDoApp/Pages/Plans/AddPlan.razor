@@ -1,4 +1,4 @@
-﻿@page "/plans/addplan"
+﻿@page "/plans/add"
 @inject PlansService planService
 @inject IFileReaderService fileReaderService
 @inject NavigationManager navigationManager
@@ -7,20 +7,20 @@
 <h3>Add a new plan</h3>
 
 <div class="row">
-    <EditForm Model="model" Style="width:100%">
+    <EditForm Model="model" OnValidSubmit="async() => await PostPlanAsync()" Style="width:100%">
         <RadzenCard>
             <AlertMessage Message="@message" MessageType="@messageType" />
             <DataAnnotationsValidator />
             <ValidationSummary />
-            <RadzenTextBox Placeholder="Title" Style="margin:10px" />
-            <RadzenTextArea Placeholder="Description" Style="margin:10px" />
+            <RadzenTextBox Placeholder="Title" @bind-Value="@model.Title" Style="margin:10px" />
+            <RadzenTextArea Placeholder="Description" @bind-Value="@model.Description" Style="margin:10px" />
             <input  @onmousemove="@Mouse_Move" @onmouseout="@Mouse_Out" type="file" style="margin:10px; width:30%" @ref="inputReference" @onchange="async () => await ChooseFileAsync()" />
             <img  style="width:50%; margin:auto" src="@imageContent" />
             <div style="visibility:@Visibility; margin:10px; font-size:small">
                 <i>.jpg, .png, .bmp</i>
             </div>
             <hr />
-            <RadzenButton Text="Insert" class="btn btn-block" ButtonStyle="Radzen.ButtonStyle.Success" Style="margin:auto; width:30%" />
+            <RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Insert" Disabled="isBusy" class="btn btn-block" ButtonStyle="Radzen.ButtonStyle.Success" Style="margin:auto; width:30%" />
 
 
         </RadzenCard>
@@ -29,10 +29,14 @@
 </div>
 
 @code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
+
     public string Visibility { get; set; } = "hidden";
 
     PlanRequest model = new PlanRequest();
-
+    bool isBusy = false;
     System.IO.Stream fileStream = null;
     string imageContent = string.Empty;
     string fileName = string.Empty;
@@ -53,7 +57,10 @@
 
     async Task ChooseFileAsync()
     {
+        //first returns collection of files that have been selected by the user
+        //than first file of the collection is taken
         var file = (await fileReaderService.CreateReference(inputReference).EnumerateFilesAsync()).FirstOrDefault();
+        //returns info about image file, that ll be used to validate a file extension
         var fileInfo = await file.ReadFileInfoAsync();
         //to validate file extension
         string extension = System.IO.Path.GetExtension(fileInfo.Name);
@@ -70,9 +77,34 @@
 
         using (var memoryStream = await file.CreateMemoryStreamAsync())
         {
+            //copy the content to a new stream
             fileStream = new System.IO.MemoryStream(memoryStream.ToArray());
-            //Convert byte code of the image to the string representation
+            //Convert byte code of the image to the string representation, bounded to img src
             imageContent = $"data:{fileInfo.Type};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
         }
+    }
+
+    async Task PostPlanAsync()
+    {
+        isBusy = true;
+
+        var userState = AuthenticationState.Result;
+        planService.AccessToken = userState.User.FindFirst("AccessToken").Value;
+
+        model.CoverFile = imageContent;
+        model.FileName = fileName;
+        var result = await planService.PostPlanAsync(model);
+
+        if (result.IsSuccess)
+        {
+            navigationManager.NavigateTo("/plans");
+        }
+        else
+        {
+            message = result.Message;
+            messageType = Models.AlertMessageType.Error;
+        }
+
+        isBusy = false;
     }
 }
