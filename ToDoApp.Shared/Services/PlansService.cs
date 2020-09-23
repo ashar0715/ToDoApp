@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AKSoftware.WebApi.Client;
 using ToDoApp.Shared.Models;
@@ -38,6 +39,17 @@ namespace ToDoApp.Shared.Services
         }
 
         /// <summary>
+        /// Retrieves a plan with the requested Id if it exists
+        /// </summary>
+        /// <param name="id">Id of the plan to be retrieved</param>
+        /// <returns></returns>
+        public async Task<PlanSingleResponse> GetPlanByIdAsync(string id)
+        {
+            var response = await client.GetProtectedAsync<PlanSingleResponse>($"{_baseUrl}/api/plans/{id}");
+            return response.Result;
+        }
+
+        /// <summary>
         /// Retrieves all the plans from API with pagination
         /// </summary>
         /// <param name="page">Number of the page</param>
@@ -56,11 +68,43 @@ namespace ToDoApp.Shared.Services
         /// <returns></returns>
         public async Task<PlanSingleResponse> PostPlanAsync(PlanRequest model)
         {
-            var response = await client.SendFormProtectedAsync<PlanSingleResponse>($"{_baseUrl}/api/plans", ActionType.POST,
+            var formKeyValues = new List<FormKeyValue>()
+            {
                 new StringFormKeyValue("Title", model.Title),
-                new StringFormKeyValue("Description", model.Description),
-                new StringFormKeyValue("CoverFile", model.CoverFile),
-                new StringFormKeyValue("FileName", model.FileName));
+                new StringFormKeyValue("Description", model.Description)
+            };
+
+            if (model.CoverFile != null)
+            {
+                formKeyValues.Add(new FileFormKeyValue("CoverFile", model.CoverFile, model.FileName));
+            }
+
+            var response = await client.SendFormProtectedAsync<PlanSingleResponse>($"{_baseUrl}/api/plans", ActionType.POST,
+                formKeyValues.ToArray());
+
+            return response.Result;
+        }
+
+        /// <summary>
+        /// Edit a plan
+        /// </summary>
+        /// <param name="model">Id of a plan to be edited</param>
+        /// <returns></returns>
+        public async Task<PlanSingleResponse> EditPlanAsync(PlanRequest model)
+        {
+            var formKeyValues = new List<FormKeyValue>()
+            {
+                new StringFormKeyValue("ID", model.Id),
+                new StringFormKeyValue("Title", model.Title),
+                new StringFormKeyValue("Description", model.Description)
+            };
+
+            if (model.CoverFile != null)
+            {
+                formKeyValues.Add(new FileFormKeyValue("CoverFile", model.CoverFile, model.FileName));
+            }
+
+            var response = await client.SendFormProtectedAsync<PlanSingleResponse>($"{_baseUrl}/api/plans", ActionType.POST, formKeyValues.ToArray());
 
             return response.Result;
         }

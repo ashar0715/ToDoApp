@@ -2,6 +2,7 @@
 @page "/plans/{pageNumber:int}"
 
 @inject PlansService plansService
+@inject NavigationManager navigationManager
 @attribute [Authorize]
 
 @if (string.IsNullOrWhiteSpace(Query))
@@ -31,12 +32,12 @@ else
         {
             <div class="col-4">
                 <RadzenCard>
-                    <img src="@plan.CoverFile"  style="width:90%;margin:5px" />
+                    <img src="@plan.CoverPath"  style="width:90%;margin:5px" />
                     <h2>@plan.Title</h2>
                     <p>@plan.Description</p>
                     <div class="row">
                         <div class="col-6">
-                            <Radzen.Blazor.RadzenButton ButtonStyle="Radzen.ButtonStyle.Success" Text="Edit" class="btn-block" />
+                            <Radzen.Blazor.RadzenButton ButtonStyle="Radzen.ButtonStyle.Success" Text="Edit" Click='() => navigationManager.NavigateTo($"/plans/details/{plan.Id}")' class="btn-block" />
                         </div>
                         <div class="col-6">
                             <Radzen.Blazor.RadzenButton ButtonStyle="Radzen.ButtonStyle.Danger" Text="Delete" class="btn-block" />

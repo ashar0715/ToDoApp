@@ -4,23 +4,23 @@
 @inject NavigationManager navigationManager
 @attribute [Authorize]
 
-<h3>Add a new plan</h3>
+<h3>Create a new plan</h3>
 
 <div class="row">
-    <EditForm Model="model" OnValidSubmit="async() => await PostPlanAsync()" Style="width:100%">
+    <EditForm Model="model" OnValidSubmit="async() => await PostPlanAsync()" Style="width:50%">
         <RadzenCard>
             <AlertMessage Message="@message" MessageType="@messageType" />
             <DataAnnotationsValidator />
             <ValidationSummary />
             <RadzenTextBox Placeholder="Title" @bind-Value="@model.Title" Style="margin:10px" />
             <RadzenTextArea Placeholder="Description" @bind-Value="@model.Description" Style="margin:10px" />
-            <input  @onmousemove="@Mouse_Move" @onmouseout="@Mouse_Out" type="file" style="margin:10px; width:30%" @ref="inputReference" @onchange="async () => await ChooseFileAsync()" />
-            <img  style="width:50%; margin:auto" src="@imageContent" />
+            <input @onmousemove="@Mouse_Move" @onmouseout="@Mouse_Out" type="file" style="margin:10px; width:50%" @ref="inputReference" @onchange="async () => await ChooseFileAsync()" />
             <div style="visibility:@Visibility; margin:10px; font-size:small">
                 <i>.jpg, .png, .bmp</i>
             </div>
+            <img style="width:50%; margin:auto" src="@imageContent" />
             <hr />
-            <RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Insert" Disabled="isBusy" class="btn btn-block" ButtonStyle="Radzen.ButtonStyle.Success" Style="margin:auto; width:30%" />
+            <RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Save" Disabled="isBusy" class="btn btn-block" ButtonStyle="Radzen.ButtonStyle.Success" Style="margin:auto; width:30%" />
 
 
         </RadzenCard>
@@ -62,6 +62,7 @@
         var file = (await fileReaderService.CreateReference(inputReference).EnumerateFilesAsync()).FirstOrDefault();
         //returns info about image file, that ll be used to validate a file extension
         var fileInfo = await file.ReadFileInfoAsync();
+        fileName = fileInfo.Name;
         //to validate file extension
         string extension = System.IO.Path.GetExtension(fileInfo.Name);
         var allowedExtensions = new string[] { ".jpg", ".png", ".bmp" };
@@ -91,7 +92,7 @@
         var userState = AuthenticationState.Result;
         planService.AccessToken = userState.User.FindFirst("AccessToken").Value;
 
-        model.CoverFile = imageContent;
+        model.CoverFile = fileStream;
         model.FileName = fileName;
         var result = await planService.PostPlanAsync(model);
 
