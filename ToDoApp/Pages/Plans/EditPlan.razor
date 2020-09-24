@@ -2,6 +2,7 @@
 @inject PlansService planService
 @inject IFileReaderService fileReaderService
 @inject NavigationManager navigationManager
+@inject ToDoItemsService itemsService
 @attribute [Authorize]
 
 <h3>Edit plan "@model.Title"</h3>
@@ -24,9 +25,43 @@
             </RadzenCard>
         </EditForm>
     </div>
+
     <div class="col-6">
         <RadzenCard>
             <h2>Plan's Items</h2>
+            <EditForm Model="itemModel" OnValidSubmit="async () => await SubmitItemFormAsync()">
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+                <table>
+                    <tr>
+                        <td>
+                            <Radzen.Blazor.RadzenButton Text="*" ButtonStyle="Radzen.ButtonStyle.Info" ButtonType="Radzen.ButtonType.Button"/>
+                        </td>
+                        <td>
+                            <RadzenTextBox Placeholder="Item Description..." @bind-Value="itemModel.Description"/>
+                        </td>
+                        <td>
+                            <Radzen.Blazor.RadzenButton Text="Submit" ButtonStyle="Radzen.ButtonStyle.Primary" ButtonType="Radzen.ButtonType.Submit"/>
+                        </td>
+                    </tr>
+                    @foreach (var item in items)
+                    {
+                        <tr>
+                            <td>
+                                <RadzenCheckBox Value="item.IsDone"/>
+                            </td>
+                            <td>
+                                <span>@item.Description</span>
+                            </td>
+                            <td>
+                                <RadzenButton Text="x" ButtonStyle="Radzen.ButtonStyle.Danger" ButtonType="Radzen.ButtonType.Button"/>
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+
+            </EditForm>
         </RadzenCard>
     </div>
 </div>
@@ -123,6 +158,7 @@
                 model.Description = result.Record.Description;
                 imageContent = result.Record.CoverPath;
                 model.Id = result.Record.Id;
+                items = result.Record.ToDoItems.ToList();
             }
             else
             {
@@ -135,8 +171,46 @@
         protected async override Task OnInitializedAsync()
         {
             var userState = AuthenticationState.Result;
-            planService.AccessToken = userState.User.FindFirst("AccessToken").Value;
+            var accessToken = userState.User.FindFirst("AccessToken").Value;
+            planService.AccessToken = accessToken;
+            itemsService.AccessToken = accessToken;
             await GetPlanByIdAsync();
         }
+        #region ToDoItems
+        List<ToDoItem> items = new List<ToDoItem>();
+        ToDoItem selectedItem = null;
+        ToDoItemRequest itemModel = new ToDoItemRequest();
+
+        async Task InsertItemAsync()
+        {
+            isBusy = true;
+            itemModel.PlanId = Id;
+            var result = await itemsService.CreateItemAsync(itemModel);
+
+            if (result.IsSuccess)
+            {
+                items.Add(result.Record);
+            }
+            else
+            {
+                //TODO: show an error alert
+            }
+            isBusy = false;
+        }
+
+        async Task SubmitItemFormAsync()
+        {
+            if (selectedItem == null)
+            {
+               await InsertItemAsync();
+            }
+            else
+            {
+                //Update
+            }
+        }
+
+        #endregion
+
     }
 

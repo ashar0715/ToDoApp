@@ -1,14 +1,15 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ToDoApp.Shared.Models
 {
-    public class ToDoItem
+    public class ToDoItemRequest
     {
         public string Id { get; set; }
+        [Required]
+        [StringLength(200)]
         public string Description { get; set; }
-        public bool IsDone { get; set; }
-        public DateTime? EstimatedDate { get; set; }
-        public DateTime? AchievedDate { get; set; }
+
         public string PlanId { get; set; }
     }
 }
