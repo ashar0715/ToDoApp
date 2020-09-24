@@ -35,26 +35,27 @@
                 <table>
                     <tr>
                         <td>
-                            <Radzen.Blazor.RadzenButton Text="*" ButtonStyle="Radzen.ButtonStyle.Info" ButtonType="Radzen.ButtonType.Button"/>
+                            <Radzen.Blazor.RadzenButton Text="*" Disabled="isBusy" ButtonStyle="Radzen.ButtonStyle.Info" ButtonType="Radzen.ButtonType.Button"/>
                         </td>
                         <td>
                             <RadzenTextBox Placeholder="Item Description..." @bind-Value="itemModel.Description"/>
                         </td>
                         <td>
-                            <Radzen.Blazor.RadzenButton Text="Submit" ButtonStyle="Radzen.ButtonStyle.Primary" ButtonType="Radzen.ButtonType.Submit"/>
+                            <Radzen.Blazor.RadzenButton Text="Submit" Disabled="isBusy" ButtonStyle="Radzen.ButtonStyle.Primary" ButtonType="Radzen.ButtonType.Submit"/>
                         </td>
                     </tr>
                     @foreach (var item in items)
                     {
+                        string descriptionStyle = item.IsDone ? "text-decoration-line: line-through" : "text-decoration-line: none";
                         <tr>
                             <td>
-                                <RadzenCheckBox Value="item.IsDone"/>
+                                <RadzenCheckBox @bind-Value="item.IsDone" @onclick="async () => await ChangeItemStatusAsync(item.Id)"/>
                             </td>
                             <td>
-                                <span>@item.Description</span>
+                                <span style="@descriptionStyle">@item.Description</span>
                             </td>
                             <td>
-                                <RadzenButton Text="x" ButtonStyle="Radzen.ButtonStyle.Danger" ButtonType="Radzen.ButtonType.Button"/>
+                                <RadzenButton Text="x" ButtonStyle="Radzen.ButtonStyle.Danger" Disabled="isBusy" ButtonType="Radzen.ButtonType.Button"/>
                             </td>
                         </tr>
 
@@ -202,12 +203,24 @@
         {
             if (selectedItem == null)
             {
-               await InsertItemAsync();
+                await InsertItemAsync();
             }
             else
             {
                 //Update
             }
+        }
+
+        async Task ChangeItemStatusAsync(string itemId)
+        {
+            isBusy = true;
+            var result = await itemsService.ChangeItemStateAsync(itemId);
+
+            if (!result.IsSuccess)
+            {
+                //show error alert message
+            }
+            isBusy = false;
         }
 
         #endregion
