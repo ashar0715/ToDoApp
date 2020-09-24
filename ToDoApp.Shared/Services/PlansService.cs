@@ -104,8 +104,19 @@ namespace ToDoApp.Shared.Services
                 formKeyValues.Add(new FileFormKeyValue("CoverFile", model.CoverFile, model.FileName));
             }
 
-            var response = await client.SendFormProtectedAsync<PlanSingleResponse>($"{_baseUrl}/api/plans", ActionType.POST, formKeyValues.ToArray());
+            var response = await client.SendFormProtectedAsync<PlanSingleResponse>($"{_baseUrl}/api/plans", ActionType.PUT, formKeyValues.ToArray());
 
+            return response.Result;
+        }
+
+        /// <summary>
+        /// Deletes specified plan
+        /// </summary>
+        /// <param name="id">Id of a plan</param>
+        /// <returns></returns>
+        public async Task<PlanSingleResponse> DeletePlanAsync(string id)
+        {
+            var response = await client.DeleteProtectedAsync<PlanSingleResponse>($"{_baseUrl}/api/plans/{id}");
             return response.Result;
         }
     }

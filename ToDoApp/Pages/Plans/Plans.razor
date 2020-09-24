@@ -31,20 +31,25 @@ else
         @foreach (var plan in plans)
         {
             <div class="col-4">
-                <RadzenCard>
+                <RadzenCard Style="margin:10px">
                     <img src="@plan.CoverPath"  style="width:90%;margin:5px" />
                     <h2>@plan.Title</h2>
                     <p>@plan.Description</p>
+                    <hr />
                     <div class="row">
                         <div class="col-6">
-                            <Radzen.Blazor.RadzenButton ButtonStyle="Radzen.ButtonStyle.Success" Text="Edit" Click='() => navigationManager.NavigateTo($"/plans/details/{plan.Id}")' class="btn-block" />
+                            <Radzen.Blazor.RadzenButton Text="Edit" Style="padding:0px" ButtonStyle="Radzen.ButtonStyle.Success"
+                                                        Click='() => navigationManager.NavigateTo($"/plans/details/{plan.Id}")' class="btn-block" />
                         </div>
                         <div class="col-6">
-                            <Radzen.Blazor.RadzenButton ButtonStyle="Radzen.ButtonStyle.Danger" Text="Delete" class="btn-block" />
+                            <Radzen.Blazor.RadzenButton Text="Delete" Style="padding:0px" ButtonStyle="Radzen.ButtonStyle.Danger"
+                                                         Click="() => DeletePlanAsync(plan.Id)" class="btn-block" />
                         </div>
                     </div>
                 </RadzenCard>
             </div>
+            <hr/>
+            <ConfirmationPopUp ConfirmationChanged="ConfirmationChanged_EventHandler" @ref="DeleteConfirmation"></ConfirmationPopUp>
         }
 
     </div>
@@ -68,6 +73,9 @@ else
 
 
 @code {
+
+    public ConfirmationPopUp DeleteConfirmation { get; set; }
+
     [Parameter]
     public int? PageNumber { get; set; }
 
@@ -81,6 +89,8 @@ else
     List<Plan> plans = new List<Plan>();
 
     int totalPages = 1;
+
+    string planToDeleteId = string.Empty;
 
     async Task GetPlansAsync()
     {
@@ -118,8 +128,43 @@ else
         await GetPlansAsync();
     }
 
+    string selectedPlanId = string.Empty;
     protected override async Task OnInitializedAsync()
     {
         await GetPlansAsync();
+    }
+
+    void SelectPlan(string id)
+    {
+        selectedPlanId = id;
+    }
+
+    void DeletePlanAsync(string id)
+    {
+        isBusy = true;
+
+        planToDeleteId = id;
+        DeleteConfirmation.Show();
+
+        isBusy = false;
+    }
+
+    protected async Task ConfirmationChanged_EventHandler(bool deleteConfirmed)
+    {
+        if (deleteConfirmed)
+        {
+            var result = await plansService.DeletePlanAsync(planToDeleteId);
+            if (result.IsSuccess)
+            {
+                var deletedPlan = plans.SingleOrDefault(p => p.Id == planToDeleteId);
+                plans.Remove(deletedPlan);
+            }
+
+            await GetPlansAsync();
+        }
+        else
+        {
+            await GetPlansAsync();
+        }
     }
 }
