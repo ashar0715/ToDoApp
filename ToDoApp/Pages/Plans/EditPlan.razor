@@ -29,6 +29,7 @@
     <div class="col-6">
         <RadzenCard>
             <h2>Plan's Items</h2>
+            <AlertMessage Message="@itemMessage" MessageType="Models.AlertMessageType.Error"/>
             <EditForm Model="itemModel" OnValidSubmit="async () => await SubmitItemFormAsync()">
                 <DataAnnotationsValidator/>
                 <ValidationSummary/>
@@ -183,6 +184,7 @@
         List<ToDoItem> items = new List<ToDoItem>();
         ToDoItem selectedItem = null;
         ToDoItemRequest itemModel = new ToDoItemRequest();
+        string itemMessage = string.Empty;
 
         async Task InsertItemAsync()
         {
@@ -196,7 +198,7 @@
             }
             else
             {
-                //TODO: show an error alert
+                itemMessage = result.Message;
             }
             isBusy = false;
         }
@@ -220,7 +222,7 @@
 
             if (!result.IsSuccess)
             {
-                //show error alert message
+                itemMessage = result.Message;
             }
             isBusy = false;
         }
@@ -230,8 +232,6 @@
             selectedItem = item;
             itemModel.Id = item.Id;
             itemModel.Description = item.Description;
-            //TODO: Show alert that the item cannot be edited if its checked
-
         }
 
         async Task EditToDoItemAsync()
